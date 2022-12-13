@@ -1,5 +1,6 @@
 package com.example.school.controller;
 
+import com.example.school.controller.reponse.SchoolResponse;
 import com.example.school.controller.request.SchoolRequest;
 import com.example.school.service.SchoolService;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/school")
@@ -27,9 +29,16 @@ public class SchoolController {
         return ResponseEntity.status(HttpStatus.CREATED).body(schoolService.save(schoolRequest));
     }
 
+    @GetMapping
+    @ApiOperation(value = "Buscar todas as escolas")
+    public ResponseEntity<List<SchoolResponse>> findAll() {
+        log.info("c={}, m={}", "SchoolController", "findAll");
+        return ResponseEntity.ok(schoolService.findAll());
+    }
+
     @GetMapping("/{id}")
     @ApiOperation(value = "Buscar escola por id")
-    public ResponseEntity<SchoolRequest> findById(@PathVariable Long id) {
+    public ResponseEntity<SchoolResponse> findById(@PathVariable Long id) {
         log.info("c={}, m={}, id={}", "SchoolController", "findById", id);
         return ResponseEntity.ok(schoolService.findById(id));
     }
