@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Getter @Setter
 @ToString
+@Builder
 public class SchoolRequest {
 
     @NotBlank(message = "Campo name obrigatório")
